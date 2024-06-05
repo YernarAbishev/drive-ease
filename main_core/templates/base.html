@@ -1,0 +1,83 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static './css/materialize.min.css' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<style>
+    .prldr {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 1;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .prldr.hidden {
+      opacity: 0;
+    }
+</style>
+<body>
+    <div class="prldr">
+         <div id="preloader" class="preloader-wrapper big active">
+          <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <nav class="blue darken-1">
+      <div class="nav-wrapper">
+        <a href="{% url 'home_page' %}" class="brand-logo"><i class="material-icons">directions_car</i> DriveEase</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      </div>
+    </nav>
+
+    <ul class="sidenav" id="mobile-demo">
+      <li style="margin-bottom: 20px; margin-left: 10px;"><h4>Menu</h4></li>
+      {% if user.is_authenticated %}
+        <li style="margin-bottom: 20px; margin-left: 10px;">Welcome, {{ user.username }}</li>
+      {% endif %}
+      <li><a href="{% url 'home_page' %}" class="waves-effect waves-light blue btn-small">Home</a></li>
+      {% if user.is_authenticated %}
+      <li><a href="{% url 'user_cars_page' %}" class="waves-effect waves-light blue btn-small">My Car</a></li>
+      <li><a href="{% url 'logout_view' %}" class="waves-effect waves-light red btn-small">Logout</a></li>
+      {% else %}
+      <li><a href="{% url 'register' %}" class="waves-effect waves-light blue btn-small">Sign Up</a></li>
+      <li><a href="{% url 'login_view' %}" class="waves-effect waves-light blue btn-small">Login</a></li>
+      {% endif %}
+    </ul>
+
+    <main>
+    {% block content %}
+    {% endblock %}
+    </main>
+
+    <script src="{% static './js/jquery.min.js' %}"></script>
+    <script src="{% static './js/materialize.min.js' %}"></script>
+    <script src="{% static './js/navbar.js' %}"></script>
+    <script src="{% static './js/preloader.js' %}"></script>
+    <script src="{% static './js/modal.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{% extends './base.html' %}
+{% block content %}
+<style>
+    input {
+        width: 100%;
+        display: block;
+        margin-bottom: 10px;
+    }
+  .helptext {
+      display: none;
+    padding: 5px 10px;
+    border: 1px solid #fb8c00;
+    background: #fb8c00;
+    color: #ffffff !important;
+    border-radius: 5px;
+  }
+  .grey-text {
+    color: #ffffff;
+  }
+</style>
+<div class="container">
+    <h4 style="margin-bottom: 20px;">Sign Up</h4>
+    <form method="post">
+      {% csrf_token %}
+      {{ form }}
+      <button class="btn-large waves-effect blue waves-light" style="width: 100%; display: block; text-align: center;" type="submit">Sign Up</button>
+      <p>If you have account, <a href="{% url 'login_view' %}">sign in app</a></p>
+    </form>
+</div>
+{% endblock %}

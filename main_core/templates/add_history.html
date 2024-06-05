@@ -1,0 +1,22 @@
+{% extends './base.html' %}
+<style>
+    input, select {
+        padding: 20px !important;
+        background: red;
+    }
+    #id_note {
+        padding: 10px;
+        border: 1px solid #323323;
+    }
+</style>
+{% block content %}
+<div class="container">
+    <a href="{% url 'user_cars_page' %}" style="margin-top: 20px;" class="waves-effect waves-light btn-small orange">Back</a>
+    <h4 style="margin-bottom: 40px;">Add history for {{ car.mark }} {{ car.model}}</h4>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <button class="btn-large waves-effect blue waves-light" style="margin-top: 20px; width: 100%; display: block; text-align: center;" type="submit">Create</button>
+    </form>
+</div>
+{% endblock %}

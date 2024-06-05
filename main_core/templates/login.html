@@ -1,0 +1,24 @@
+{% extends './base.html' %}
+{% block content %}
+<style>
+  #hint_id_password1, #hint_id_username, #hint_id_password2{
+    padding: 5px 10px;
+    border: 1px solid #fb8c00;
+    background: #fb8c00;
+    color: #ffffff !important;
+    border-radius: 5px;
+  }
+  .grey-text {
+    color: #ffffff;
+  }
+</style>
+<div class="container">
+    <h4 style="margin-bottom: 20px;">Login</h4>
+    <form method="post">
+      {% csrf_token %}
+      {{ form }}
+      <button class="btn-large waves-effect blue waves-light" style="width: 100%; display: block; text-align: center;" type="submit">Sign Up</button>
+      <p>If you haven't account, <a href="{% url 'register' %}">sign up app</a></p>
+    </form>
+</div>
+{% endblock %}

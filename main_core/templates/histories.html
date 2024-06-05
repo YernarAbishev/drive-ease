@@ -1,0 +1,66 @@
+{% extends './base.html' %}
+
+{% block content %}
+<style>
+    .fixed-right {
+        position: fixed;
+        right: 10px;
+        bottom: 10px;
+        z-index: 99;
+    }
+</style>
+<div class="fixed-right">
+    <a href="{% url 'add_history_page' pk=car.pk %}" class="btn-floating btn-large waves-effect waves-light blue"><i class="material-icons">add</i></a>
+</div>
+<div class="container">
+    <h4 style="margin-bottom: 40px;">{{ car.mark }}</h4>
+    {% if histories %}
+    {% for history in histories %}
+      <div class="row">
+        <div class="col s12 m7">
+          <div class="card">
+            {% if history.image %}
+            <div class="card-image">
+              <img src="{{ history.image.url }}" style="width: 100%; height: 200px; object-fit: cover;">
+            </div>
+            {% else %}
+            {% endif %}
+            <div class="card-content">
+              {% if history.note %}
+              <p>{{ history.note }}</p>
+              {% else %}
+              {% endif %}
+              <p><small>{{ history.created_at }}</small></p>
+            </div>
+            <div class="card-action">
+              <a href="{% url 'edit_history_page' pk=history.pk %}" class="waves-effect waves-light btn orange">Edit</a>
+                <!-- Modal Trigger -->
+                <a class="waves-effect waves-light btn red modal-trigger" href="#modal1">Delete</a>
+                <div id="modal1" class="modal">
+                    <div class="modal-content">
+                      <h4>Delete history?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{% url 'delete_history_page' pk=history.pk %}" class="waves-effect waves-light btn red">Yes</a>
+                        <a class="modal-close waves-effect waves-green btn blue">No</a>
+                    </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% else %}
+      <div class="row" style="text-align: center">
+        <div class="col s12 m6">
+          <div class="card red darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">Empty</span>
+              <p>There is no data about your history. Add history for car to manage it</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+</div>
+{% endblock %}
